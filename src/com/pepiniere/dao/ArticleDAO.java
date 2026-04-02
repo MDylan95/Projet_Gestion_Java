@@ -58,10 +58,10 @@ public class ArticleDAO {
      * Insère un nouvel article en utilisant la séquence Oracle seq_article
      */
     public int insert(Article article) throws SQLException {
-        String sql = "INSERT INTO Article (noArticle, description, prixUnitaire, quantiteEnStock) " +
+        String sql = "INSERT INTO Article (NOARTICLE, DESCRIPTION, PRIXUNITAIRE, QUANTITEENSTOCK) " +
                      "VALUES (seq_article.NEXTVAL, ?, ?, ?)";
         
-        try (PreparedStatement pstmt = getConnection().prepareStatement(sql, new String[]{"noArticle"})) {
+        try (PreparedStatement pstmt = getConnection().prepareStatement(sql, new String[]{"NOARTICLE"})) {
             pstmt.setString(1, article.getDescription());
             pstmt.setBigDecimal(2, article.getPrixUnitaire());
             pstmt.setInt(3, article.getQuantiteEnStock());
@@ -77,7 +77,7 @@ public class ArticleDAO {
     }
     
     public void update(Article article) throws SQLException {
-        String sql = "UPDATE Article SET description = ?, prixUnitaire = ?, quantiteEnStock = ? WHERE noArticle = ?";
+        String sql = "UPDATE Article SET DESCRIPTION = ?, PRIXUNITAIRE = ?, QUANTITEENSTOCK = ? WHERE NOARTICLE = ?";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setString(1, article.getDescription());

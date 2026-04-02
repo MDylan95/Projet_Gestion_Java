@@ -121,7 +121,7 @@ public class ClientFormPanel extends JPanel {
         String telephone = txtTelephone.getText().trim();
         
         if (noClientStr.isEmpty() || nomClient.isEmpty()) {
-            UIStyles.showErrorMessage(this, "Veuillez remplir le numéro et le nom du client.");
+            ToastNotification.error(parent, "Veuillez remplir le numéro et le nom du client.");
             return;
         }
         
@@ -134,19 +134,19 @@ public class ClientFormPanel extends JPanel {
                 client.setNomClient(nomClient);
                 client.setNoTelephone(telephone);
                 dao.update(client);
-                UIStyles.showSuccessMessage(this, "Client modifié avec succès.");
+                ToastNotification.success(parent, "Client modifié avec succès.");
             } else {
                 Client newClient = new Client(noClient, nomClient, telephone);
                 dao.insert(newClient);
-                UIStyles.showSuccessMessage(this, "Client créé avec succès.");
+                ToastNotification.success(parent, "Client créé avec succès.");
             }
             
             parent.showPanel(new ClientListPanel(parent));
             
         } catch (NumberFormatException e) {
-            UIStyles.showErrorMessage(this, "Le numéro de client doit être un nombre valide.");
+            ToastNotification.error(parent, "Le numéro de client doit être un nombre valide.");
         } catch (Exception e) {
-            UIStyles.showErrorMessage(this, "Erreur: " + e.getMessage());
+            ToastNotification.error(parent, "Erreur: " + e.getMessage());
         }
     }
 }

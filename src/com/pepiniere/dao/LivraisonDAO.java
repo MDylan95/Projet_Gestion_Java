@@ -73,7 +73,7 @@ public class LivraisonDAO {
     }
     
     public void insert(Livraison livraison) throws SQLException {
-        String sql = "INSERT INTO Livraison (noLivraison, dateLivraison) VALUES (?, ?)";
+        String sql = "INSERT INTO Livraison (NOLIVRAISON, DATELIVRAISON) VALUES (?, ?)";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, livraison.getNoLivraison());
@@ -83,7 +83,7 @@ public class LivraisonDAO {
     }
     
     public void insertDetailLivraison(DetailLivraison detail) throws SQLException {
-        String sql = "INSERT INTO DetailLivraison (noLivraison, noCommande, noArticle, quantiteLivree) " +
+        String sql = "INSERT INTO DetailLivraison (NOLIVRAISON, NOCOMMANDE, NOARTICLE, QUANTITELIVREE) " +
                      "VALUES (?, ?, ?, ?)";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
@@ -96,8 +96,8 @@ public class LivraisonDAO {
     }
     
     public void delete(int noLivraison) throws SQLException {
-        String sqlDetails = "DELETE FROM DetailLivraison WHERE noLivraison = ?";
-        String sqlLivraison = "DELETE FROM Livraison WHERE noLivraison = ?";
+        String sqlDetails = "DELETE FROM DetailLivraison WHERE NOLIVRAISON = ?";
+        String sqlLivraison = "DELETE FROM Livraison WHERE NOLIVRAISON = ?";
         
         try (PreparedStatement pstmt1 = getConnection().prepareStatement(sqlDetails);
              PreparedStatement pstmt2 = getConnection().prepareStatement(sqlLivraison)) {

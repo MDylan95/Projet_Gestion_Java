@@ -198,9 +198,7 @@ public class LivraisonFormPanel extends JPanel {
                 cmbCommande.addItem("Cmd " + c.getNoCommande() + " - " + c.getNomClient());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                "Erreur: " + e.getMessage(),
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Erreur: " + e.getMessage());
         }
     }
     
@@ -221,9 +219,7 @@ public class LivraisonFormPanel extends JPanel {
                 });
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                "Erreur: " + e.getMessage(),
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Erreur: " + e.getMessage());
         }
     }
     
@@ -233,18 +229,14 @@ public class LivraisonFormPanel extends JPanel {
         String qteStr = txtQuantiteLivree.getText().trim();
         
         if (row < 0 || idx < 0 || qteStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Sélectionnez une ligne et entrez une quantité.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Sélectionnez une ligne et entrez une quantité.");
             return;
         }
         
         try {
             int qte = Integer.parseInt(qteStr);
             if (qte <= 0) {
-                JOptionPane.showMessageDialog(this,
-                    "La quantité doit être positive.",
-                    "Erreur", JOptionPane.ERROR_MESSAGE);
+                ToastNotification.error(parent, "La quantité doit être positive.");
                 return;
             }
             
@@ -255,9 +247,7 @@ public class LivraisonFormPanel extends JPanel {
             txtQuantiteLivree.setText("");
             
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this,
-                "Quantité invalide.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Quantité invalide.");
         }
     }
     
@@ -272,16 +262,12 @@ public class LivraisonFormPanel extends JPanel {
         String noLivraisonStr = txtNoLivraison.getText().trim();
         
         if (noLivraisonStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Veuillez entrer un numéro de livraison.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Veuillez entrer un numéro de livraison.");
             return;
         }
         
         if (detailsModel.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this,
-                "Veuillez ajouter au moins un détail de livraison.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Veuillez ajouter au moins un détail de livraison.");
             return;
         }
         

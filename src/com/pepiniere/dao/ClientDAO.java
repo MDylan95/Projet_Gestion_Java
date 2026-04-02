@@ -52,7 +52,7 @@ public class ClientDAO {
     }
     
     public void insert(Client client) throws SQLException {
-        String sql = "INSERT INTO Client (noClient, nomClient, noTelephone) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Client (NOCLIENT, NOMCLIENT, NOTELEPHONE) VALUES (?, ?, ?)";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, client.getNoClient());
@@ -63,7 +63,7 @@ public class ClientDAO {
     }
     
     public void update(Client client) throws SQLException {
-        String sql = "UPDATE Client SET nomClient = ?, noTelephone = ? WHERE noClient = ?";
+        String sql = "UPDATE Client SET NOMCLIENT = ?, NOTELEPHONE = ? WHERE NOCLIENT = ?";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setString(1, client.getNomClient());
@@ -74,7 +74,7 @@ public class ClientDAO {
     }
     
     public void delete(int noClient) throws SQLException {
-        String sql = "DELETE FROM Client WHERE noClient = ?";
+        String sql = "DELETE FROM Client WHERE NOCLIENT = ?";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, noClient);

@@ -191,9 +191,7 @@ public class CommandeFormPanel extends JPanel {
                 cmbArticle.addItem(a);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                "Erreur lors du chargement des données: " + e.getMessage(),
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Erreur lors du chargement des données: " + e.getMessage());
         }
     }
     
@@ -202,18 +200,14 @@ public class CommandeFormPanel extends JPanel {
         String quantiteStr = txtQuantite.getText().trim();
         
         if (article == null || quantiteStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Veuillez sélectionner un article et entrer une quantité.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Veuillez sélectionner un article et entrer une quantité.");
             return;
         }
         
         try {
             int quantite = Integer.parseInt(quantiteStr);
             if (quantite <= 0) {
-                JOptionPane.showMessageDialog(this,
-                    "La quantité doit être positive.",
-                    "Erreur", JOptionPane.ERROR_MESSAGE);
+                ToastNotification.error(parent, "La quantité doit être positive.");
                 return;
             }
             
@@ -225,9 +219,7 @@ public class CommandeFormPanel extends JPanel {
             txtQuantite.setText("");
             
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this,
-                "Quantité invalide.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Quantité invalide.");
         }
     }
     
@@ -243,16 +235,12 @@ public class CommandeFormPanel extends JPanel {
         Client client = (Client) cmbClient.getSelectedItem();
         
         if (noCommandeStr.isEmpty() || client == null) {
-            JOptionPane.showMessageDialog(this,
-                "Veuillez remplir le numéro de commande et sélectionner un client.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Veuillez remplir le numéro de commande et sélectionner un client.");
             return;
         }
         
         if (tableModel.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this,
-                "Veuillez ajouter au moins une ligne de commande.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Veuillez ajouter au moins une ligne de commande.");
             return;
         }
         
@@ -275,19 +263,13 @@ public class CommandeFormPanel extends JPanel {
                 dao.insertLigneCommande(ligne);
             }
             
-            JOptionPane.showMessageDialog(this,
-                "Commande enregistrée avec succès.",
-                "Succès", JOptionPane.INFORMATION_MESSAGE);
+            ToastNotification.success(parent, "Commande enregistrée avec succès.");
             parent.showPanel(new CommandeListPanel(parent));
             
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this,
-                "Le numéro de commande doit être un nombre.",
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Le numéro de commande doit être un nombre.");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                "Erreur: " + e.getMessage(),
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ToastNotification.error(parent, "Erreur: " + e.getMessage());
         }
     }
 }

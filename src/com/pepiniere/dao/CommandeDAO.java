@@ -86,7 +86,7 @@ public class CommandeDAO {
     }
     
     public void insert(Commande commande) throws SQLException {
-        String sql = "INSERT INTO Commande (noCommande, dateCommande, noClient) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Commande (NOCOMMANDE, DATECOMMANDE, NOCLIENT) VALUES (?, ?, ?)";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, commande.getNoCommande());
@@ -97,7 +97,7 @@ public class CommandeDAO {
     }
     
     public void insertLigneCommande(LigneCommande ligne) throws SQLException {
-        String sql = "INSERT INTO LigneCommande (noCommande, noArticle, quantite) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO LigneCommande (NOCOMMANDE, NOARTICLE, QUANTITE) VALUES (?, ?, ?)";
         
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, ligne.getNoCommande());
@@ -108,8 +108,8 @@ public class CommandeDAO {
     }
     
     public void delete(int noCommande) throws SQLException {
-        String sqlLignes = "DELETE FROM LigneCommande WHERE noCommande = ?";
-        String sqlCommande = "DELETE FROM Commande WHERE noCommande = ?";
+        String sqlLignes = "DELETE FROM LigneCommande WHERE NOCOMMANDE = ?";
+        String sqlCommande = "DELETE FROM Commande WHERE NOCOMMANDE = ?";
         
         try (PreparedStatement pstmt1 = getConnection().prepareStatement(sqlLignes);
              PreparedStatement pstmt2 = getConnection().prepareStatement(sqlCommande)) {

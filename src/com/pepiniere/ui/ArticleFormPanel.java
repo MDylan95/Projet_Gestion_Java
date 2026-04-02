@@ -143,7 +143,7 @@ public class ArticleFormPanel extends JPanel {
         String quantiteStr = txtQuantiteStock.getText().trim();
         
         if (description.isEmpty() || prixStr.isEmpty() || quantiteStr.isEmpty()) {
-            UIStyles.showErrorMessage(this, "Veuillez remplir tous les champs.");
+            ToastNotification.error(parent, "Veuillez remplir tous les champs.");
             return;
         }
         
@@ -152,7 +152,7 @@ public class ArticleFormPanel extends JPanel {
             int quantite = Integer.parseInt(quantiteStr);
             
             if (prix.compareTo(BigDecimal.ZERO) < 0 || quantite < 0) {
-                UIStyles.showErrorMessage(this, "Le prix et la quantité doivent être positifs.");
+                ToastNotification.error(parent, "Le prix et la quantité doivent être positifs.");
                 return;
             }
             
@@ -163,22 +163,22 @@ public class ArticleFormPanel extends JPanel {
                 article.setPrixUnitaire(prix);
                 article.setQuantiteEnStock(quantite);
                 dao.update(article);
-                UIStyles.showSuccessMessage(this, "Article modifié avec succès.");
+                ToastNotification.success(parent, "Article modifié avec succès.");
             } else {
                 Article newArticle = new Article();
                 newArticle.setDescription(description);
                 newArticle.setPrixUnitaire(prix);
                 newArticle.setQuantiteEnStock(quantite);
                 int newId = dao.insert(newArticle);
-                UIStyles.showSuccessMessage(this, "Article créé avec succès (ID: " + newId + ").");
+                ToastNotification.success(parent, "Article créé avec succès (ID: " + newId + ").");
             }
             
             parent.showPanel(new ArticleListPanel(parent));
             
         } catch (NumberFormatException e) {
-            UIStyles.showErrorMessage(this, "Veuillez entrer des valeurs numériques valides.");
+            ToastNotification.error(parent, "Veuillez entrer des valeurs numériques valides.");
         } catch (Exception e) {
-            UIStyles.showErrorMessage(this, "Erreur: " + e.getMessage());
+            ToastNotification.error(parent, "Erreur: " + e.getMessage());
         }
     }
 }
