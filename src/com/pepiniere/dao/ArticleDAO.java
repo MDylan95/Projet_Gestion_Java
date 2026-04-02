@@ -110,15 +110,16 @@ public class ArticleDAO {
     }
     
     /**
-     * Récupère la valeur totale du stock via la vue STVALEUR
+     * Récupère la valeur totale du stock en calculant directement
      */
     public BigDecimal getValeurStock() throws SQLException {
-        String sql = "SELECT * FROM STVALEUR";
+        String sql = "SELECT SUM(prixUnitaire * quantiteEnStock) AS valeur_totale FROM Article";
         
         try (Statement stmt = getConnection().createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             if (rs.next()) {
-                return rs.getBigDecimal(1);
+                BigDecimal valeur = rs.getBigDecimal("valeur_totale");
+                return valeur != null ? valeur : BigDecimal.ZERO;
             }
         }
         return BigDecimal.ZERO;

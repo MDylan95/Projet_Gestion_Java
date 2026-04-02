@@ -1,6 +1,30 @@
 # Pépinière "Plein de Foin" - Application de Gestion Commerciale
 
-Application Java Swing de gestion commerciale pour une pépinière, connectée à une base de données Oracle.
+Application Java Swing moderne de gestion commerciale pour une pépinière, connectée à une base de données Oracle. Interface élégante avec FlatLaf, notifications non-bloquantes et animations fluides.
+
+## 🎨 Améliorations UX/UI
+
+### FlatLaf Look & Feel
+- Interface moderne et cohérente
+- Boutons nets avec coins arrondis
+- Scrollbars fines et discrètes
+- Palette de couleurs professionnelle
+
+### Composants personnalisés
+- **ToastNotification** : Notifications non-bloquantes (succès, erreur, warning, info)
+- **LoadingSpinner** : Indicateur de chargement animé pour les opérations longues
+- **FadePanel** : Transitions fluides entre les vues
+- **AnimatedCard** : Cartes avec animations hover
+- **SidebarButton** : Boutons de navigation avec icônes et animations
+- **ValidatedTextField** : Champs avec validation en temps réel
+- **IconUtils** : Icônes textuelles pour toute l'application
+
+### Améliorations visuelles
+- Tableaux avec alternances de couleurs
+- Highlight au survol des lignes
+- En-têtes stylisés avec meilleur contraste
+- Dashboard avec cartes de statistiques
+- Sidebar avec navigation claire
 
 ## Fonctionnalités
 
@@ -16,14 +40,15 @@ Application Java Swing de gestion commerciale pour une pépinière, connectée �
 - Gestion des commandes et lignes de commande
 - Gestion des livraisons
 - Augmentation des prix via procédure Oracle `augmenter_prix`
-- Consultation de la valeur du stock via vue `STVALEUR`
+- Consultation de la valeur du stock (calcul direct)
 - Calcul du montant par client via fonction `montant_client`
 
 ## Prérequis
 
 - **Java JDK 8** ou supérieur
 - **Oracle Database** (XE ou autre)
-- **Driver JDBC Oracle** (`ojdbc8.jar` ou plus récent)
+- **Driver JDBC Oracle** (`ojdbc8.jar`)
+- **FlatLaf** (`flatlaf-3.4.1.jar`)
 
 ## Structure du Projet
 
@@ -146,19 +171,26 @@ END;
 
 ### Compilation
 
-**Sous Windows (PowerShell) :**
-```powershell
-Get-ChildItem -Path "src" -Filter "*.java" -Recurse | Select-Object -ExpandProperty FullName | Out-File sources.txt -Encoding ascii; javac -cp "lib/ojdbc8.jar" -d bin "@sources.txt"; Remove-Item sources.txt
+**Sous Windows (CMD) :**
+```cmd
+javac -encoding UTF-8 -cp lib/ojdbc8.jar;lib/flatlaf-3.4.1.jar -d bin @sources.txt
 ```
 
 **Sous Linux/Mac (Bash) :**
 ```bash
-javac -cp "lib/ojdbc8.jar" -d bin src/com/pepiniere/**/*.java src/com/pepiniere/*.java
+javac -encoding UTF-8 -cp lib/ojdbc8.jar:lib/flatlaf-3.4.1.jar -d bin src/com/pepiniere/**/*.java src/com/pepiniere/*.java
 ```
 
 ### Exécution
+
+**Sous Windows :**
+```cmd
+java -cp bin;lib/ojdbc8.jar;lib/flatlaf-3.4.1.jar com.pepiniere.Main
+```
+
+**Sous Linux/Mac :**
 ```bash
-java -cp "bin;lib/ojdbc8.jar" com.pepiniere.Main
+java -cp bin:lib/ojdbc8.jar:lib/flatlaf-3.4.1.jar com.pepiniere.Main
 ```
 
 ## Configuration de la Connexion
@@ -179,8 +211,45 @@ Modifier les paramètres dans `DatabaseConnection.java` :
 
 - **Pattern DAO** : Séparation de la logique SQL de l'interface graphique
 - **Singleton** : Pour la gestion de la connexion et de la session
-- **Swing** : Interface graphique Java native
+- **Swing** : Interface graphique Java native avec FlatLaf
+- **Composants personnalisés** : ToastNotification, LoadingSpinner, FadePanel, etc.
+
+## Documentation
+
+- **README.md** : Ce fichier, guide principal du projet
+- **AMELIORATIONS_UXUI.md** : Documentation détaillée des améliorations UX/UI
+- **sql/schema.sql** : Schéma complet de la base de données Oracle
+
+## Fichiers clés
+
+### Configuration
+- `.gitignore` : Fichiers ignorés par Git
+- `sources.txt` : Liste des fichiers source Java à compiler
+- `download_flatlaf_jar.ps1` : Script pour télécharger FlatLaf
+
+### Dépendances
+- `lib/ojdbc8.jar` : Driver Oracle JDBC
+- `lib/flatlaf-3.4.1.jar` : FlatLaf Look & Feel
+
+## Dépannage
+
+### Erreur : "ORA-00904: identifiant non valide"
+- Vérifier que les noms de colonnes utilisent les majuscules (ex: `QUANTITEENSTOCK`)
+- Consulter le schéma SQL pour les noms exacts des colonnes
+
+### Erreur de connexion Oracle
+- Vérifier que le service Oracle est actif
+- Vérifier les paramètres de connexion dans `DatabaseConnection.java`
+- Vérifier que le driver JDBC est présent dans `lib/`
+
+### Icônes non visibles
+- Les icônes utilisent des caractères Unicode simples et universels
+- Vérifier que la police Segoe UI est disponible sur le système
 
 ## Auteur
 
 Application développée pour la pépinière "Plein de Foin"
+
+## Licence
+
+Projet privé - Tous droits réservés
