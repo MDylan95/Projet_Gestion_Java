@@ -8,6 +8,7 @@ bin/
 # Package Files
 *.jar
 !lib/ojdbc8.jar
+!lib/flatlaf-3.4.1.jar
 *.war
 *.nar
 *.ear
